@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct RandomDatesApp: App {
+    @State private var isUserAuth: Bool = false
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if isUserAuth {
+                MainView()
+            } else {
+                LoginView(isUserAuth: $isUserAuth)
+            }
         }
     }
 }
