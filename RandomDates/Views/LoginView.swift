@@ -35,44 +35,40 @@ struct LoginView: View {
     var body: some View {
         ZStack {
             ScrollView {
-                VStack(spacing: 100) {
+                VStack() {
                     if shouldShowLogo {
                         Image("Logo")
                             .resizable()
                             .frame(width: 100, height: 100)
-                            .padding(.top, 100)
+                            .padding(.vertical, 100)
                     }
-                    VStack {
+                    VStack(spacing: 30) {
                         TextField("Enter login", text: $login)
-                            .padding()
+                            .padding(10)
+                            .frame(minHeight: 55)
                             .background(Color.white)
                             .textInputAutocapitalization(/*@START_MENU_TOKEN@*/.never/*@END_MENU_TOKEN@*/)
                             .cornerRadius(15)
-                            .padding(8)
-                            .padding(.top, 40)
-                            .padding(.horizontal, 30)
+                            .padding([.top,.horizontal], 35)
                             .font(.title3)
                             .shadow(radius: 6)
                         SecureField("Enter password", text: $password)
-                            .padding()
+                            .padding(10)
+                            .frame(minHeight: 55)
                             .background(Color.white)
                             .textInputAutocapitalization(/*@START_MENU_TOKEN@*/.never/*@END_MENU_TOKEN@*/)
                             .cornerRadius(15)
-                            .padding(8)
-                            .padding(.horizontal, 30)
+                            .padding(.horizontal, 35)
                             .font(.title3)
                             .shadow(radius: 6)
                         Spacer()
-                            .frame(height: 40)
                         Button(action: verifyLoginData) {
                             Text("Login")
-                                .padding()
+                                .frame(minHeight: 55)
                                 .frame(maxWidth: .infinity)
                                 .background(ColorsApp.button)
                                 .cornerRadius(12)
-                                .padding(8)
-                                .padding(.bottom, 40)
-                                .padding(.horizontal, 30)
+                                .padding([.bottom, .horizontal], 30)
                                 .font(.title3.bold())
                                 .foregroundColor(.white)
                                 .shadow(radius: 5)
@@ -90,12 +86,9 @@ struct LoginView: View {
                     shouldShowLogo = !iskeyboardOn }
             }
         }
-        .onTapGesture {
-            UIApplication.shared.endEditing()
-        }
         .alert(isPresented: $showVerifyErrorAlert,
-               content: { Alert(title: Text("Error"),
-                                message: Text("Incorrent Login/Password was entered"))
+               content: { Alert(title: Text("Please re-enter Login or Password"),
+                                message: Text("Invalid Login/Password"))
         })
         .frame(maxWidth:.infinity, maxHeight: .infinity)
         .background(ColorsApp.background)
