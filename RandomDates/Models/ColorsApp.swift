@@ -9,5 +9,6 @@ import SwiftUI
 
 struct ColorsApp {
     static let background = Color("BackgroundGray")
-    static let button = Color("CustomViolet")
+    static let button1 = Color("CustomViolet")
+    static let button2 = Color("CustomColor")
 }
