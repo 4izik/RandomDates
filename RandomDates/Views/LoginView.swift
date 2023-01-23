@@ -7,27 +7,13 @@
 
 import SwiftUI
 import Combine
+import Firebase
 
 struct LoginView: View {
-    //MARK: - User details
-    
-    @State private var email: String = ""
-    @State private var password: String = ""
     //MARK: - View properties
-    
+    @StateObject private var loginModel = LoginModel()
     @State private var createAccount: Bool = false
     @State private var shouldShowLogo: Bool = true
-    @State private var showVerifyErrorAlert = false
-    @Binding var isUserAuth: Bool
-    
-    private func verifyLoginData() {
-        if email == "login" && password == "password" {
-            isUserAuth = true
-        } else {
-            showVerifyErrorAlert = true
-        }
-        password = ""
-    }
     
     private let keyboardIsOnPublisher = Publishers.Merge(
         NotificationCenter.default.publisher(for: UIResponder.keyboardWillChangeFrameNotification)
@@ -47,7 +33,7 @@ struct LoginView: View {
                             .padding(.vertical, 50)
                     }
                     VStack(spacing: 20) {
-                        TextField("Enter email", text: $email)
+                        TextField("Enter email", text: $loginModel.email)
                             .padding(10)
                             .frame(minHeight: 55)
                             .background(Color.white)
@@ -56,7 +42,7 @@ struct LoginView: View {
                             .padding([.top,.horizontal], 35)
                             .font(.title3)
                             .shadow(radius: 6)
-                        SecureField("Enter password", text: $password)
+                        SecureField("Enter password", text: $loginModel.password)
                             .padding(10)
                             .frame(minHeight: 55)
                             .background(Color.white)
@@ -66,7 +52,16 @@ struct LoginView: View {
                             .font(.title3)
                             .shadow(radius: 6)
                         Spacer()
-                        Button(action: verifyLoginData) {
+                        Button {
+                            Task {
+                                do {
+                                    try await loginModel.loginUser()
+                                } catch {
+                                    loginModel.errorMessage = error.localizedDescription
+                                    loginModel.showError.toggle()
+                                }
+                            }
+                        } label: {
                             Text("Login")
                                 .frame(minHeight: 55)
                                 .frame(maxWidth: .infinity)
@@ -76,40 +71,36 @@ struct LoginView: View {
                                 .font(.title3.bold())
                                 .foregroundColor(.white)
                                 .shadow(radius: 5)
+                                .disabled(loginModel.email.isEmpty || loginModel.password.isEmpty)
                         }
-                        .disabled(email.isEmpty || password.isEmpty)
-                        
                         Text ("Don't have account?")
                             .foregroundColor(.gray)
                         Button("Register now") {
                             createAccount.toggle()
                         }
-                            .frame(minHeight: 40)
-                            .frame(maxWidth: .infinity)
-                            .background(ColorsApp.button2)
-                            .cornerRadius(12)
-                            .padding(.bottom, 30)
-                            .padding(.horizontal, 100)
-                            .font(.title3.bold())
-                            .foregroundColor(.white)
-                            .shadow(radius: 5)
-                            .opacity(0.8)
-                        }
+                        .frame(minHeight: 45)
+                        .frame(maxWidth: .infinity)
+                        .background(ColorsApp.button2)
+                        .cornerRadius(12)
+                        .padding(.bottom, 30)
+                        .padding(.horizontal, 100)
+                        .font(.title3.bold())
+                        .foregroundColor(.white)
+                        .shadow(radius: 5)
+                        .opacity(0.85)
                     }
-                    .background(Color(.white))
-                    .cornerRadius(30)
-                    .padding(15)
-                    .shadow(radius: 3)
+                    .alert(loginModel.errorMessage, isPresented: $loginModel.showError, actions: {})
                 }
+                .background(Color(.white))
+                .cornerRadius(30)
+                .padding(15)
+                .shadow(radius: 3)
+            }
         }
         .onReceive(keyboardIsOnPublisher) { iskeyboardOn in
             withAnimation(Animation.easeInOut(duration: 0.5)) {
                 shouldShowLogo = !iskeyboardOn }
         }
-        .alert(isPresented: $showVerifyErrorAlert,
-               content: { Alert(title: Text("Please re-enter Login or Password"),
-                                message: Text("Invalid Login/Password"))
-        })
         .frame(maxWidth:.infinity, maxHeight: .infinity)
         .background(ColorsApp.background)
         .fullScreenCover(isPresented: $createAccount) {
@@ -121,6 +112,6 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(isUserAuth: (.constant(false)))
+        LoginView()
     }
 }

@@ -6,17 +6,22 @@
 //
 
 import SwiftUI
+import Firebase
 
 @main
 struct RandomDatesApp: App {
-    @State private var isUserAuth: Bool = false
+    @AppStorage("log_status") var logStatus: Bool = false
+    
+    init() {
+        FirebaseApp.configure()
+    }
     
     var body: some Scene {
         WindowGroup {
-            if isUserAuth {
+            if logStatus {
                 MainView()
             } else {
-                LoginView(isUserAuth: $isUserAuth)
+                LoginView()
             }
         }
     }

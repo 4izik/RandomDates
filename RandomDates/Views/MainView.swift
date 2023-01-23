@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct MainView: View {
+
     var body: some View {
-        Text("MainView")
+        Text("Main view. Logged in")
     }
 }
 
