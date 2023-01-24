@@ -15,6 +15,8 @@
 		CE12DE7E297D944300FB6621 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = CE12DE7D297D944300FB6621 /* FirebaseStorage */; };
 		CE12DE80297E719E00FB6621 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = CE12DE7F297E719E00FB6621 /* FirebaseDatabase */; };
 		CE12DE82297ECD8800FB6621 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE12DE81297ECD8800FB6621 /* LoginModel.swift */; };
+		CE8FEA9D297FFA710001DCFE /* KeyChainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8FEA9C297FFA710001DCFE /* KeyChainHelper.swift */; };
+		CE8FEA9F298005050001DCFE /* KeyChainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8FEA9E298005050001DCFE /* KeyChainWrapper.swift */; };
 		CEAAE0132975B33A00CD2B0E /* RandomDatesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAAE0122975B33A00CD2B0E /* RandomDatesApp.swift */; };
 		CEAAE0152975B33A00CD2B0E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAAE0142975B33A00CD2B0E /* LoginView.swift */; };
 		CEAAE0172975B33C00CD2B0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEAAE0162975B33C00CD2B0E /* Assets.xcassets */; };
@@ -28,6 +30,8 @@
 		CE12DE6F297D21BE00FB6621 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		CE12DE71297D61EA00FB6621 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CE12DE81297ECD8800FB6621 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
+		CE8FEA9C297FFA710001DCFE /* KeyChainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainHelper.swift; sourceTree = "<group>"; };
+		CE8FEA9E298005050001DCFE /* KeyChainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainWrapper.swift; sourceTree = "<group>"; };
 		CEAAE00F2975B33A00CD2B0E /* RandomDates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RandomDates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEAAE0122975B33A00CD2B0E /* RandomDatesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomDatesApp.swift; sourceTree = "<group>"; };
 		CEAAE0142975B33A00CD2B0E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -61,6 +65,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CE8FEA9B297FFA130001DCFE /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				CE8FEA9C297FFA710001DCFE /* KeyChainHelper.swift */,
+				CE8FEA9E298005050001DCFE /* KeyChainWrapper.swift */,
+			);
+			path = Keychain;
+			sourceTree = "<group>";
+		};
+		CE8FEAA029805AE40001DCFE /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				CE8FEA9B297FFA130001DCFE /* Keychain */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		CEAAE0062975B33A00CD2B0E = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +106,7 @@
 				CEAAE0282976E35000CD2B0E /* Models */,
 				CEAAE0202976793000CD2B0E /* Views */,
 				CEAAE021297679E200CD2B0E /* Extensions */,
+				CE8FEAA029805AE40001DCFE /* Service */,
 				CEAAE0162975B33C00CD2B0E /* Assets.xcassets */,
 				CE12DE71297D61EA00FB6621 /* GoogleService-Info.plist */,
 				CEAAE0182975B33C00CD2B0E /* Preview Content */,
@@ -121,8 +143,8 @@
 		CEAAE0282976E35000CD2B0E /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				CEAAE0292976E39C00CD2B0E /* ColorsApp.swift */,
 				CE12DE81297ECD8800FB6621 /* LoginModel.swift */,
+				CEAAE0292976E39C00CD2B0E /* ColorsApp.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -208,11 +230,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE8FEA9F298005050001DCFE /* KeyChainWrapper.swift in Sources */,
 				CEAAE02329767AA200CD2B0E /* UI+Extension.swift in Sources */,
 				CE12DE82297ECD8800FB6621 /* LoginModel.swift in Sources */,
 				CEAAE02A2976E39C00CD2B0E /* ColorsApp.swift in Sources */,
 				CEAAE02529767D6200CD2B0E /* MainView.swift in Sources */,
 				CE12DE70297D21BE00FB6621 /* RegisterView.swift in Sources */,
+				CE8FEA9D297FFA710001DCFE /* KeyChainHelper.swift in Sources */,
 				CEAAE0152975B33A00CD2B0E /* LoginView.swift in Sources */,
 				CEAAE0132975B33A00CD2B0E /* RandomDatesApp.swift in Sources */,
 			);

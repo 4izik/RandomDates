@@ -12,28 +12,37 @@ class LoginModel: ObservableObject {
     
     @Published var email: String = ""
     @Published var password: String = ""
+    
     @Published var showError: Bool = false
     @Published var errorMessage: String = ""
     
     @AppStorage("log_status") var logStatus: Bool = false
-    @AppStorage("saved_email") var savedEmail: String = ""
-    @AppStorage("saved_password") var savedPassword: String = ""
+    
+    @KeyChain(key: "use_email", account: "Login") var storedEmail
+    @KeyChain(key: "use_password", account: "Login") var storedPassword
     
     func loginUser() async throws {
+        
         let _ = try await Auth.auth().signIn(withEmail: email, password: password)
         
         DispatchQueue.main.async { [self] in
-            self.savedEmail = email
-            self.savedPassword = password
-            self.logStatus = true }
+            let emailData = self.email.data(using: .utf8)
+            let passwordData = self.password.data(using: .utf8)
+            self.storedEmail = emailData
+            self.storedPassword = passwordData
+            self.logStatus = true
+        }
     }
     
     func registerUser() async throws {
+        
         let _ = try await Auth.auth().createUser(withEmail: email, password: password)
         
         DispatchQueue.main.async { [self] in
-            self.savedEmail = email
-            self.savedPassword = password
+            let emailData = self.email.data(using: .utf8)
+            let passwordData = self.password.data(using: .utf8)
+            self.storedEmail = emailData
+            self.storedPassword = passwordData
             self.logStatus = true
         }
     }
