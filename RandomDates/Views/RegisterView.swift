@@ -43,8 +43,10 @@ struct RegisterView: View {
                 Button {
                     Task {
                         do {
+                            loginModel.isLoading.toggle()
                             try await loginModel.registerUser()
                         } catch {
+                            loginModel.isLoading = false
                             loginModel.errorMessage = error.localizedDescription
                             loginModel.showError.toggle()
                         }
@@ -74,6 +76,9 @@ struct RegisterView: View {
             }
             .alert(loginModel.errorMessage, isPresented: $loginModel.showError, actions: {})
         }
+        .overlay(content: {
+            LoadingAlertView(showLoading: $loginModel.isLoading)
+        })
     }
 }
 //MARK: - Preview

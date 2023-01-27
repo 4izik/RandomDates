@@ -12,10 +12,11 @@ import Firebase
 struct LoginView: View {
     //MARK: - View properties
     @StateObject private var loginModel = LoginModel()
+    
     @State private var createAccount: Bool = false
     @State private var shouldShowLogo: Bool = true
     
-    private let keyboardIsOnPublisher = Publishers.Merge(
+    private var keyboardIsOnPublisher = Publishers.Merge(
         NotificationCenter.default.publisher(for: UIResponder.keyboardWillChangeFrameNotification)
             .map { _ in true },
         NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
@@ -55,8 +56,10 @@ struct LoginView: View {
                         Button {
                             Task {
                                 do {
+                                    loginModel.isLoading.toggle()
                                     try await loginModel.loginUser()
                                 } catch {
+                                    loginModel.isLoading = false
                                     loginModel.errorMessage = error.localizedDescription
                                     loginModel.showError.toggle()
                                 }
@@ -96,6 +99,9 @@ struct LoginView: View {
                 .padding(15)
                 .shadow(radius: 3)
             }
+            .overlay(content: {
+                LoadingAlertView(showLoading: $loginModel.isLoading)
+            })
         }
         .onReceive(keyboardIsOnPublisher) { iskeyboardOn in
             withAnimation(Animation.easeInOut(duration: 0.5)) {

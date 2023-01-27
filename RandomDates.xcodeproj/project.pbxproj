@@ -15,6 +15,7 @@
 		CE12DE7E297D944300FB6621 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = CE12DE7D297D944300FB6621 /* FirebaseStorage */; };
 		CE12DE80297E719E00FB6621 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = CE12DE7F297E719E00FB6621 /* FirebaseDatabase */; };
 		CE12DE82297ECD8800FB6621 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE12DE81297ECD8800FB6621 /* LoginModel.swift */; };
+		CE3CFA782982B0C1009694FC /* LoadingAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3CFA772982B0C1009694FC /* LoadingAlertView.swift */; };
 		CE8FEA9D297FFA710001DCFE /* KeyChainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8FEA9C297FFA710001DCFE /* KeyChainHelper.swift */; };
 		CE8FEA9F298005050001DCFE /* KeyChainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8FEA9E298005050001DCFE /* KeyChainWrapper.swift */; };
 		CEAAE0132975B33A00CD2B0E /* RandomDatesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAAE0122975B33A00CD2B0E /* RandomDatesApp.swift */; };
@@ -30,6 +31,7 @@
 		CE12DE6F297D21BE00FB6621 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		CE12DE71297D61EA00FB6621 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CE12DE81297ECD8800FB6621 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
+		CE3CFA772982B0C1009694FC /* LoadingAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAlertView.swift; sourceTree = "<group>"; };
 		CE8FEA9C297FFA710001DCFE /* KeyChainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainHelper.swift; sourceTree = "<group>"; };
 		CE8FEA9E298005050001DCFE /* KeyChainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainWrapper.swift; sourceTree = "<group>"; };
 		CEAAE00F2975B33A00CD2B0E /* RandomDates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RandomDates.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +130,7 @@
 				CEAAE0142975B33A00CD2B0E /* LoginView.swift */,
 				CE12DE6F297D21BE00FB6621 /* RegisterView.swift */,
 				CEAAE02429767D6200CD2B0E /* MainView.swift */,
+				CE3CFA772982B0C1009694FC /* LoadingAlertView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -234,6 +237,7 @@
 				CEAAE02329767AA200CD2B0E /* UI+Extension.swift in Sources */,
 				CE12DE82297ECD8800FB6621 /* LoginModel.swift in Sources */,
 				CEAAE02A2976E39C00CD2B0E /* ColorsApp.swift in Sources */,
+				CE3CFA782982B0C1009694FC /* LoadingAlertView.swift in Sources */,
 				CEAAE02529767D6200CD2B0E /* MainView.swift in Sources */,
 				CE12DE70297D21BE00FB6621 /* RegisterView.swift in Sources */,
 				CE8FEA9D297FFA710001DCFE /* KeyChainHelper.swift in Sources */,

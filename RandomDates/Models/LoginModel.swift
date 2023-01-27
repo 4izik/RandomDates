@@ -9,17 +9,21 @@ import SwiftUI
 import Firebase
 
 class LoginModel: ObservableObject {
-    
+    //MARK: - Properties
+
     @Published var email: String = ""
     @Published var password: String = ""
     
     @Published var showError: Bool = false
     @Published var errorMessage: String = ""
     
-    @AppStorage("log_status") var logStatus: Bool = false
+    @Published var isLoading: Bool = false
     
+    @AppStorage("log_status") var logStatus: Bool = false
     @KeyChain(key: "use_email", account: "Login") var storedEmail
     @KeyChain(key: "use_password", account: "Login") var storedPassword
+    
+    //MARK: - Functions
     
     func loginUser() async throws {
         
