@@ -41,18 +41,9 @@ struct RegisterView: View {
                     .font(.title3)
                     .shadow(radius: 6)
                 Button {
-                    Task {
-                        do {
-                            loginModel.isLoading.toggle()
-                            try await loginModel.registerUser()
-                        } catch {
-                            loginModel.isLoading = false
-                            loginModel.errorMessage = error.localizedDescription
-                            loginModel.showError.toggle()
-                        }
-                    }
+                    loginModel.registerUser()
                 } label: {
-                    Text("Register")
+                    Text("Registration")
                         .frame(minHeight: 55)
                         .frame(maxWidth: .infinity)
                         .background(ColorsApp.button2)
