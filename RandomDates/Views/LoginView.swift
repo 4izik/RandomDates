@@ -11,6 +11,7 @@ import Firebase
 
 struct LoginView: View {
     //MARK: - View properties
+    
     @StateObject private var loginModel = LoginModel()
     
     @State private var createAccount: Bool = false
@@ -54,16 +55,7 @@ struct LoginView: View {
                             .shadow(radius: 6)
                         Spacer()
                         Button {
-                            Task {
-                                do {
-                                    loginModel.isLoading.toggle()
-                                    try await loginModel.loginUser()
-                                } catch {
-                                    loginModel.isLoading = false
-                                    loginModel.errorMessage = error.localizedDescription
-                                    loginModel.showError.toggle()
-                                }
-                            }
+                            loginModel.loginUser()
                         } label: {
                             Text("Login")
                                 .frame(minHeight: 55)
