@@ -10,7 +10,7 @@ import Firebase
 
 class LoginModel: ObservableObject {
     //MARK: - Properties
-
+    
     @Published var email: String = ""
     @Published var password: String = ""
     

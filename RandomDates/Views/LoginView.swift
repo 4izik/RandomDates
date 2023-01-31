@@ -17,6 +17,8 @@ struct LoginView: View {
     @State private var createAccount: Bool = false
     @State private var shouldShowLogo: Bool = true
     
+    @FocusState private var fieldFocus: FocusOnFields?
+    
     private var keyboardIsOnPublisher = Publishers.Merge(
         NotificationCenter.default.publisher(for: UIResponder.keyboardWillChangeFrameNotification)
             .map { _ in true },
@@ -44,6 +46,7 @@ struct LoginView: View {
                             .padding([.top,.horizontal], 35)
                             .font(.title3)
                             .shadow(radius: 6)
+                            .focused($fieldFocus, equals: .emailField)
                         SecureField("Enter password", text: $loginModel.password)
                             .padding(10)
                             .frame(minHeight: 55)
@@ -53,9 +56,15 @@ struct LoginView: View {
                             .padding(.horizontal, 35)
                             .font(.title3)
                             .shadow(radius: 6)
+                            .focused($fieldFocus, equals: .passwordField)
                         Spacer()
                         Button {
-                            loginModel.loginUser()
+                            if loginModel.email.isEmpty {
+                                fieldFocus = .emailField
+                            } else if loginModel.password.isEmpty {
+                                fieldFocus = .passwordField
+                            } else {
+                                loginModel.loginUser() }
                         } label: {
                             Text("Login")
                                 .frame(minHeight: 55)
@@ -66,8 +75,8 @@ struct LoginView: View {
                                 .font(.title3.bold())
                                 .foregroundColor(.white)
                                 .shadow(radius: 5)
-                                .disabled(loginModel.email.isEmpty || loginModel.password.isEmpty)
                         }
+                        .disabled(loginModel.email.isEmpty)
                         Text ("Don't have account?")
                             .foregroundColor(.gray)
                         Button("Register now") {
@@ -95,8 +104,13 @@ struct LoginView: View {
                 LoadingAlertView(showLoading: $loginModel.isLoading)
             })
         }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                fieldFocus = .emailField
+            }
+        }
         .onReceive(keyboardIsOnPublisher) { iskeyboardOn in
-            withAnimation(Animation.easeInOut(duration: 0.5)) {
+            withAnimation(Animation.easeInOut(duration: 3)) {
                 shouldShowLogo = !iskeyboardOn }
         }
         .frame(maxWidth:.infinity, maxHeight: .infinity)
@@ -106,6 +120,7 @@ struct LoginView: View {
         }
     }
 }
+
 //MARK: - Preview
 
 struct LoginView_Previews: PreviewProvider {
