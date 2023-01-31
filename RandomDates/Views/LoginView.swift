@@ -93,6 +93,9 @@ struct LoginView: View {
                         .shadow(radius: 5)
                         .opacity(0.85)
                     }
+                    .onAppear {
+                        UITextField.appearance().clearButtonMode = .whileEditing
+                    }
                     .alert(loginModel.errorMessage, isPresented: $loginModel.showError, actions: {})
                 }
                 .background(Color(.white))

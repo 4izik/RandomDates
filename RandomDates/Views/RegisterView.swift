@@ -75,6 +75,9 @@ struct RegisterView: View {
                 }
                 Spacer()
             }
+            .onAppear {
+                UITextField.appearance().clearButtonMode = .whileEditing
+            }
             .alert(loginModel.errorMessage, isPresented: $loginModel.showError, actions: {})
         }
         .onAppear {
