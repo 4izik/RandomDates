@@ -12,6 +12,8 @@ struct RegisterView: View {
     //MARK: - View properties
     
     @StateObject private var loginModel = LoginModel()
+    @FocusState private var fieldFocus: FocusOnFields?
+    
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -31,6 +33,7 @@ struct RegisterView: View {
                     .padding(.horizontal, 35)
                     .font(.title3)
                     .shadow(radius: 6)
+                    .focused($fieldFocus, equals: .emailField)
                 SecureField("Enter password", text: $loginModel.password)
                     .padding(10)
                     .frame(minHeight: 55)
@@ -40,8 +43,14 @@ struct RegisterView: View {
                     .padding(.horizontal, 35)
                     .font(.title3)
                     .shadow(radius: 6)
+                    .focused($fieldFocus, equals: .passwordField)
                 Button {
-                    loginModel.registerUser()
+                    if loginModel.email.isEmpty {
+                        fieldFocus = .emailField
+                    } else if loginModel.password.isEmpty {
+                        fieldFocus = .passwordField
+                    } else {
+                        loginModel.registerUser() }
                 } label: {
                     Text("Registration")
                         .frame(minHeight: 55)
@@ -52,8 +61,9 @@ struct RegisterView: View {
                         .font(.title3.bold())
                         .foregroundColor(.white)
                         .shadow(radius: 5)
-                        .disabled(loginModel.email.isEmpty || loginModel.password.isEmpty)
                 }
+                .disabled(loginModel.email.isEmpty)
+                
                 HStack {
                     Text("Already have account?")
                         .foregroundColor(.gray)
@@ -65,7 +75,15 @@ struct RegisterView: View {
                 }
                 Spacer()
             }
+            .onAppear {
+                UITextField.appearance().clearButtonMode = .whileEditing
+            }
             .alert(loginModel.errorMessage, isPresented: $loginModel.showError, actions: {})
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                fieldFocus = .emailField
+            }
         }
         .overlay(content: {
             LoadingAlertView(showLoading: $loginModel.isLoading)
